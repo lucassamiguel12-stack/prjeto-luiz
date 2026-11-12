@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumo Consciente | Educação Financeira</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --black: #050505;
+  --dark: #111111;
+  --card: #191919;
+  --border: #333333;
+  --white: #FFFFFF;
+  --gray: #C0C0C0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #000;
+  color: var(--white);
+  overflow: hidden;
+}
+
+.presentation {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background:
+    radial-gradient(circle at 85% 15%, #ffffff0b, transparent 35%),
+    linear-gradient(135deg, #151515, #000000);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 8% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(45px);
+  transition: opacity .5s ease, transform .5s ease;
+  pointer-events: none;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.tag {
+  color: #CCCCCC;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: clamp(42px, 6vw, 78px);
+  line-height: 1.1;
+  font-weight: 800;
+  max-width: 950px;
+  margin-bottom: 28px;
+}
+
+h2 {
+  font-size: clamp(34px, 4vw, 54px);
+  margin-bottom: 38px;
+  line-height: 1.2;
+}
+
+h1 span, h2 span {
+  color: #AFAFAF;
+}
+
+.subtitle {
+  font-size: clamp(19px, 2vw, 25px);
+  color: var(--gray);
+  line-height: 1.8;
+  max-width: 750px;
+}
+
+.students {
+  margin-top: 35px;
+  line-height: 2.1;
+  color: #DDDDDD;
+  font-size: 17px;
+}
+
+.students strong {
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.card {
+  background: linear-gradient(145deg, #202020, #111111);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 27px;
+  min-height: 155px;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #AAAAAA;
+  background: #292929;
+}
+
+.icon {
+  font-size: 34px;
+  margin-bottom: 17px;
+}
+
+.card h3 {
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: #C0C0C0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.info-box {
+  background: #FFFFFF0A;
+  border-left: 4px solid #FFFFFF;
+  padding: 24px;
+  margin-top: 28px;
+  border-radius: 0 12px 12px 0;
+  color: #E0E0E0;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.number {
+  font-size: 100px;
+  font-weight: 800;
+  color: #FFFFFF0D;
+  position: absolute;
+  right: 9%;
+  top: 12%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  background: linear-gradient(transparent, #000000);
+}
+
+.progress {
+  width: 150px;
+  height: 4px;
+  background: #333333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 16.66%;
+  background: #FFFFFF;
+  transition: .4s;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.controls button {
+  background: #202020;
+  color: #FFFFFF;
+  border: 1px solid #444444;
+  border-radius: 10px;
+  padding: 13px 20px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: .3s;
+}
+
+.controls button:hover {
+  background: #444444;
+}
+
+.controls button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.counter {
+  color: #CCCCCC;
+  font-size: 15px;
+  margin-right: 12px;
+}
+
+.conclusion {
+  max-width: 850px;
+}
+
+.quote {
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.6;
+  margin-top: 35px;
+  border-left: 4px solid #FFFFFF;
+  padding-left: 25px;
+}
+
+.final-message {
+  margin-top: 45px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+@media(max-width: 750px) {
+  .slide {
+    padding: 9% 7% 105px;
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding-top: 13vh;
+  }
+
+  .slide:first-child {
+    justify-content: center;
+    padding-top: 8%;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .cards {
+    gap: 12px;
+  }
+
+  .card {
+    padding: 18px;
+    min-height: 135px;
+  }
+
+  .card h3 {
+    font-size: 17px;
+  }
+
+  .card p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .icon {
+    font-size: 27px;
+  }
+
+  .number {
+    font-size: 65px;
+    top: 5%;
+  }
+
+  .footer {
+    padding: 15px 5%;
+  }
+
+  .progress {
+    width: 70px;
+  }
+
+  .controls button {
+    padding: 10px 13px;
+  }
+
+  .students {
+    margin-top: 22px;
+    font-size: 14px;
+  }
+
+  .tag {
+    font-size: 13px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="presentation">
+
+<!-- SLIDE 1: CAPA -->
+<section class="slide active">
+
+  <div class="tag">Educação financeira e empreendedorismo</div>
+
+  <h1>
+    CONSUMO<br>
+    <span>CONSCIENTE</span><br>
+    E PREVENÇÃO DO<br>
+    ENDIVIDAMENTO
+  </h1>
+
+  <p class="subtitle">
+    Educação financeira e planejamento no âmbito escolar.
+  </p>
+
+  <div class="students">
+    <strong>INTEGRANTES</strong><br>
+    Helena Eusebio de Paula Braz<br>
+    João Paulo de Freitas Portela<br>
+    Luiz Augusto Amorim Said<br>
+    Sophia Emanuelly Guerreiro Cardoso
+  </div>
+
+  <div class="students">
+    Centro de Educação Integral Christ Master<br>
+    Manaus/AM · 2026
+  </div>
+
+</section>
+
+<!-- SLIDE 2: PROBLEMA -->
+<section class="slide">
+
+  <div class="number">02</div>
+  <div class="tag">01 · O problema</div>
+
+  <h2>O problema do <span>consumo excessivo</span></h2>
+
+  <div class="content">
+
+    <div>
+      <p class="subtitle">
+        Muitas pessoas enfrentam dificuldades financeiras por não
+        planejarem seus gastos e consumirem além de suas possibilidades.
+      </p>
+
+      <div class="info-box">
+        O consumo sem planejamento pode levar ao acúmulo de dívidas
+        e comprometer a qualidade de vida.
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">🛍️</div>
+        <h3>Compras por impulso</h3>
+        <p>Comprar sem avaliar a real necessidade.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">💳</div>
+        <h3>Crédito descontrolado</h3>
+        <p>Utilizar o cartão sem considerar a fatura.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">📉</div>
+        <h3>Falta de planejamento</h3>
+        <p>Não organizar receitas e despesas.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">⚠️</div>
+        <h3>Endividamento</h3>
+        <p>Acumular compromissos financeiros.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: CONSUMO CONSCIENTE -->
+<section class="slide">
+
+  <div class="number">03</div>
+  <div class="tag">02 · Consumo consciente</div>
+
+  <h2>O que é <span>consumo consciente?</span></h2>
+
+  <p class="subtitle">
+    É consumir de forma responsável, avaliando as necessidades,
+    os preços e as consequências de cada compra.
+  </p>
+
+  <div class="cards" style="margin-top:35px">
+
+    <div class="card">
+      <div class="icon">🎯</div>
+      <h3>Necessidade ou desejo?</h3>
+      <p>Identificar o que realmente precisamos.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔎</div>
+      <h3>Pesquisar preços</h3>
+      <p>Comparar opções antes de comprar.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧠</div>
+      <h3>Evitar impulsos</h3>
+      <p>Pensar antes de realizar uma compra.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🌱</div>
+      <h3>Comprar melhor</h3>
+      <p>Valorizar escolhas responsáveis e duradouras.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SLIDE 4: PREVENÇÃO -->
+<section class="slide">
+
+  <div class="number">04</div>
+  <div class="tag">03 · Prevenção</div>
+
+  <h2>Como evitar o <span>endividamento?</span></h2>
+
+  <div class="content">
+
+    <div>
+      <p class="subtitle">
+        A organização financeira permite controlar o dinheiro,
+        evitar gastos desnecessários e alcançar objetivos.
+      </p>
+
+      <div class="info-box">
+        Planejar hoje é uma maneira de proteger o seu futuro financeiro.
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Organizar gastos</h3>
+        <p>Registrar tudo o que entra e sai.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">💰</div>
+        <h3>Economizar</h3>
+        <p>Reservar uma parte do dinheiro.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">💳</div>
+        <h3>Controlar o crédito</h3>
+        <p>Evitar parcelas que não cabem no orçamento.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🛡️</div>
+        <h3>Reserva financeira</h3>
+        <p>Guardar dinheiro para imprevistos.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: ESCOLA -->
+<section class="slide">
+
+  <div class="number">05</div>
+  <div class="tag">04 · Educação nas escolas</div>
+
+  <h2>A importância da educação <span>financeira nas escolas</span></h2>
+
+  <p class="subtitle">
+    A escola é um espaço importante para desenvolver conhecimentos
+    e hábitos que serão utilizados durante toda a vida.
+  </p>
+
+  <div class="cards" style="margin-top:35px">
+
+    <div class="card">
+      <div class="icon">📚</div>
+      <h3>Aprendizado</h3>
+      <p>Entender como administrar o próprio dinheiro.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎯</div>
+      <h3>Responsabilidade</h3>
+      <p>Desenvolver hábitos financeiros saudáveis.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">💡</div>
+      <h3>Decisões melhores</h3>
+      <p>Fazer escolhas conscientes no dia a dia.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🚀</div>
+      <h3>Futuro financeiro</h3>
+      <p>Preparar os jovens para a vida adulta.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SLIDE 6: CONCLUSÃO -->
+<section class="slide">
+
+  <div class="tag">05 · Considerações finais</div>
+
+  <div class="conclusion">
+
+    <h1>
+      EDUCAÇÃO FINANCEIRA É
+      <span>LIBERDADE DE ESCOLHA.</span>
+    </h1>
+
+    <p class="subtitle">
+      O consumo consciente e o planejamento financeiro são
+      fundamentais para evitar dívidas e construir uma vida
+      financeira equilibrada.
+    </p>
+
+    <div class="quote">
+      "Não se trata de deixar de comprar, mas de aprender
+      a comprar com consciência."
+    </div>
+
+    <p class="final-message">
+      OBRIGADO PELA ATENÇÃO!
+    </p>
+
+  </div>
+</section>
+
+<!-- NAVEGAÇÃO -->
+<div class="footer">
+
+  <div class="progress">
+    <div class="progress-fill" id="progress"></div>
+  </div>
+
+  <div class="controls">
+    <span class="counter" id="counter">01 / 06</span>
+    <button id="prev" onclick="previousSlide()">←</button>
+    <button id="next" onclick="nextSlide()">→</button>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+let current = 0;
+
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const counter = document.getElementById('counter');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+
+function showSlide(index) {
+
+  slides[current].classList.remove('active');
+
+  current = Math.max(0, Math.min(index, slides.length - 1));
+
+  slides[current].classList.add('active');
+
+  progress.style.width =
+    ((current + 1) / slides.length * 100) + '%';
+
+  counter.textContent =
+    String(current + 1).padStart(2, '0') +
+    ' / ' +
+    String(slides.length).padStart(2, '0');
+
+  prev.disabled = current === 0;
+  next.disabled = current === slides.length - 1;
+}
+
+function nextSlide() {
+  if (current < slides.length - 1) {
+    showSlide(current + 1);
+  }
+}
+
+function previousSlide() {
+  if (current > 0) {
+    showSlide(current - 1);
+  }
+}
+
+document.addEventListener('keydown', (event) => {
+
+  if (event.key === 'ArrowRight' || event.key === ' ') {
+    event.preventDefault();
+    nextSlide();
+  }
+
+  if (event.key === 'ArrowLeft') {
+    previousSlide();
+  }
+
+});
+
+showSlide(0);
+</script>
+
+</body>
+</html>
